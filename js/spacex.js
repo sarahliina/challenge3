@@ -110,13 +110,10 @@ function time() {
 // Runs time function
 time();
 
-// Creates random longitude and latitude coordinates and rounds them to 4 decimal points
-
-
-
-
-// Check location
+// Buttonclick triggers multiple actions
 document.getElementById("getLocation").onclick = function() {
+
+  // Creates random longitude and latitude coordinates and rounds them to 4 decimal points
   var lon = Math.random() * (180 - (-180) + 1) + (-180);
   var lat = Math.random() * (90 - (-90) + 1) + (-90);
 
@@ -132,6 +129,7 @@ document.getElementById("getLocation").onclick = function() {
     // Connects to the fetch and creates a function to do following things with the response
     .then(function(responseAir) {
       if (responseAir.status == "fail") {
+        // Triggers error function
         error();
       } else {
         // Displays weather icon
@@ -143,29 +141,36 @@ document.getElementById("getLocation").onclick = function() {
         // Displays current coordinates
         document.getElementById("currentLocation").innerHTML = "Your current coordinates are <br><br> Latitude: " + lat.toFixed(4) + "<br> Longitude: " + lon.toFixed(4);
 
+        // Triggers function that checks for water or land
         water(lat, lon);
+        // Triggers function that calculates the distance of location to the Kennedy Space Centre
         distance(lat, lon);
+        // Triggers function that creates a map showing the coordinates of the current location
         map(lat, lon);
-        // directions(lat, lon);
       };
     });
 }
 
+// Error function that sets interface back to standard values
 function error() {
   var currentLocation = document.getElementById("currentLocation");
   document.getElementById("weatherIcon").src = "./images/temperature.png";
   document.getElementById("degCelsius").innerHTML = "";
   document.getElementById("city").innerHTML = "";
   document.getElementById("checkedLocation").innerHTML = "Check your location to see if you will touch down on water or land.";
-  document.getElementById("distance").innerHTML = "Distance of your landing spot to the Kennedy Space Centre.";
+  document.getElementById("distance").innerHTML = "Check the distance of your landing spot to the Kennedy Space Centre, USA.";
 
+  // Adds the class "apply-shake" to the ID "currentLocation"
   currentLocation.classList.add("apply-shake");
+  // Displays new information
   currentLocation.innerHTML = "Your current location could not be found. Please try again.";
+  // Removes the class "apply-shake" from the ID "currentLocation" after animation is finished
   currentLocation.addEventListener("animationend", (e) => {
     currentLocation.classList.remove("apply-shake");
   });
 }
 
+// Function that checks coordinates for water or land
 function water(lat, lon) {
   // Creates new variable holding a request with API key and coordinates to check for water or land
   var request = "https://api.onwater.io/api/v1/results/" + lat + "," + lon + "?access_token=DTNDhFGkoWtVzcgiYWdU"
@@ -187,27 +192,36 @@ function water(lat, lon) {
     });
 }
 
+// Function that calculates the distance of the coordinates to the Kennedy Space Centre
 function distance(lat, lon) {
+  // Creates new variable holding a request with coordinates of two places and the metrical unit
   var request = [lat, lon, 28.5729, 80.6490, "km"];
+  // Holds the API key
   Algorithmia.client("sim5vw5W3nYhD2MTZ8UkIqczTSI1")
-    .algo("Geo/LatLongDistance/0.1.1?timeout=300") // timeout is optional
+    // Calls the algorithm to calculate distance
+    .algo("Geo/LatLongDistance/0.1.1?timeout=300")
+    // Transmits the request
     .pipe(request)
+    // Returns the response
     .then(function(response) {
+      // Displays the response in the interface
       document.getElementById("distance").innerHTML = response.result.toFixed(2) + " km <br> to the Kennedy Space Centre.";
     });
 }
 
+// Function that creates a map
 function map(lat, lon) {
-
-
+  // Holds the API key
   L.mapbox.accessToken = "pk.eyJ1Ijoic2FyYWhsaW5hIiwiYSI6ImNqdHp1a2xsbTBlcmQ0M3QxYmhnNW1ucngifQ.wtVWTOpFLslHYIVSGNQLlg";
-
+  // Creates new variable that holds the style of the map and the API key
   var mapboxTiles = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=" + L.mapbox.accessToken);
-
+  // Creates new variable that calls the ID "map"
   var map = L.map("map")
+    // Adds the style to the ID
     .addLayer(mapboxTiles)
+    // Sets the viewpoint to the coordinates and a zoom of 10
     .setView([lat, lon], 10);
-
+  // Creates new variable that holds a marker-icon & colour set to the coordinates
   var fixedMarker = L.marker(new L.LatLng(lat, lon), {
     icon: L.mapbox.marker.icon({
       "marker-color": "ff8888"

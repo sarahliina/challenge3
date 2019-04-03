@@ -12,6 +12,9 @@ body {
    text-align: center;
    padding-left: 10px;
    padding-right: 10px;
+   height: 100%;
+   max-width: 1800px;
+   overflow: hidden;
 }
 
 h1 {
@@ -43,8 +46,8 @@ header {
 }
 
 .image {
-   max-width: 550px;
    height: 400px;
+   margin-left: -80px;
 }
 
 .col-left {
@@ -112,6 +115,7 @@ header {
 #map {
    max-width: 550px;
    height: 400px;
+   overflow: hidden;
 }
 
 #filler {
@@ -139,11 +143,7 @@ header {
 }
 
 #distance {
-   font-family: "Orbitron", sans-serif;
-   color: white;
-   text-align: center;
-   padding-left: 10px;
-   padding-right: 10px;
+   padding: 2.5%;
 }
 
 /* Button */
