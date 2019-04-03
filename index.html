@@ -1,0 +1,79 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Interplanetary Transport Spaceshuttle</title>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:400,700|Rajdhani:400,700" rel="stylesheet">
+  <link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+  <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.js'></script>
+  <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.0/mapbox-gl-directions.css' type='text/css' />
+  <header>
+    <img class="header_img" src="images/spacex_logo.png">
+    <h1>Interplanetary Transport Control Panel</h1>
+  </header>
+
+  <main>
+    <div class="col-left">
+      <h2>Parameters</h2>
+      <div class="border">
+        <h2>Current date on Earth</h2>
+        <p id="date"></p>
+      </div>
+
+      <div class="border">
+        <h2>Current time on Earth</h2>
+        <div id="time">
+          <p id="hour"></p>
+          <p id="minutes"></p>
+          <p id="seconds"></p>
+        </div>
+      </div>
+
+      <div class="border">
+        <h2>Time until landing on Earth</h2>
+        <p id="counter"></p>
+      </div>
+    </div>
+
+    <div class="col-middle">
+      <h2>Location</h2>
+      <div class="border">
+        <div id="map"><img class="image" src="images/earth.jpg"></div>
+      </div>
+      <div class="border">
+        <p id="currentLocation">Current location remains unknown.</p>
+        <button id="getLocation" class="button"><img class="buttonImage" src="images/worldwide.png"></button>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <h2>Metrics</h2>
+      <div class="border">
+        <h2>Current Weather</h2>
+        <img id="weatherIcon" src="images/temperature.png">
+        <p id="degCelsius"></p>
+        <p id="city"></p>
+      </div>
+
+      <div class="specialBox">
+        <p id="checkedLocation">Check your location to see if you will touch down on water or land.</p>
+      </div>
+
+      <div class="border">
+        <p id="distance">Distance of your landing spot to the Kennedy Space Centre.</p>
+      </div>
+    </div>
+  </main>
+
+</body>
+<script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+<script src="https://algorithmia.com/v1/clients/js/algorithmia-0.2.0.js" type="text/javascript"></script>
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+<script src="js/spacex.js"></script>
+
+</html>
