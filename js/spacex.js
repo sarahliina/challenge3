@@ -135,7 +135,7 @@ document.getElementById("getLocation").onclick = function() {
         // Displays weather icon
         document.getElementById("weatherIcon").src = "./images/" + responseAir.data.current.weather.ic + ".png";
         // Displays current temperature in degrees Celsius
-        document.getElementById("degCelsius").innerHTML = responseAir.data.current.weather.tp + " C";
+        document.getElementById("degCelsius").innerHTML = responseAir.data.current.weather.tp + " °C";
         // Displays the city and country name
         document.getElementById("city").innerHTML = responseAir.data.city + ", " + responseAir.data.country;
         // Displays current coordinates
